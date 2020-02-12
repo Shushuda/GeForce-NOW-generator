@@ -57,11 +57,17 @@ if __name__ == "__main__":
     geforce_url = \
         'https://static.nvidiagrid.net/supported-public-game-list/gfnpc.json'
     geforce_list = get_json(geforce_url)
+    game_list = generate_list(geforce_list)
+
     try:
         steam_list = connect(key, args.username)
     except steamapi.errors.APIException:
         print("Couldn't get the game list from Steam.")
+        input("Press Enter to exit...")
         exit(1)
-    game_list = generate_list(geforce_list)
+
     result_data = get_common(game_list, steam_list)
     save_file(result_data, args.filename)
+
+    print("Done! :D")
+    input("Press Enter to exit...")
