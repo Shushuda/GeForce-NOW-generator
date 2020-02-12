@@ -7,7 +7,7 @@ Blessed be the creator of **steamapi**, [smiley](https://github.com/smiley), for
 
 ## Getting Started
 
-Download the project as-is, create a valid **config.ini** file inside the repo dir (sample in Prerequisites) and run the script.
+Download the project as-is, create a valid **config.ini** file inside the repo dir (sample in Prerequisites) and run the script from the shell.
 It takes two positional arguments - username and filename.
 ```
 $ ./GeForce_NOW_games.py --help
