@@ -7,12 +7,21 @@ Blessed be the creator of **steamapi**, [smiley](https://github.com/smiley), for
 
 ## Getting Started
 
-Clone the project with the submodules:
+Clone the project:
+
 ```
-git clone --recursive https://github.com/Shushuda/GeForce-NOW-generator.git
+$ git clone https://github.com/Shushuda/GeForce-NOW-generator.git
 ```
+
+Install requirements:
+
+```
+$ pip install -r requirements.txt
+```
+
 Create a valid **config.ini** file inside the repo dir (sample in Prerequisites) and run the script from the shell.
 It takes two positional arguments - username and filename.
+
 ```
 $ ./GeForce_NOW_games.py --help
 usage: GeForce-NOW-games [-h] username filename
@@ -35,9 +44,14 @@ This project uses:
 Python 3.7
 ```
 
-Please remember to check the requirements of submodule **steamapi**.
+as well as:
+
+```
+steamapi
+```
 
 The script requires a **config.ini** file of the following format:
+
 ```
 [STEAM]
 ApiKey = <insert_your_key_here>
