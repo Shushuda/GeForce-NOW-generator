@@ -1,9 +1,10 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import argparse
 import configparser
 import json
 import urllib.request
+from slugify import slugify
 import steamapi
 
 
@@ -20,20 +21,34 @@ def save_file(data, file_name):
 
 
 def generate_list(json_data):
-    data = [game['title'] for game in json_data]
-    return data
+    data_list = []
+    for game in json_data:
+        data = dict()
+        try:
+            data['title'] = game['title']
+        except TypeError:
+            data['title'] = game.name
+        try:
+            data['slug'] = slugify(game['title'])
+        except TypeError:
+            data['slug'] = slugify(game.name)
+        data_list.append(data)
+    return data_list
 
 
 def connect(api_key, userurl):
     steamapi.core.APIConnection(api_key=api_key, validate_key=True)
     user = steamapi.user.SteamUser(userurl=userurl)
     games = user.games
-    games_list = [game.name for game in games]
+    games_list = generate_list(games)
     return games_list
 
 
 def get_common(geforce_game_list, steam_game_list):
-    result = [game for game in steam_game_list if game in geforce_game_list]
+    geforce_slug_list = [game['slug'] for game in geforce_game_list]
+    result = [game['title'] for game in steam_game_list
+              if game['slug'] in geforce_slug_list]
+    result.sort()
     return result
 
 
@@ -53,11 +68,10 @@ if __name__ == "__main__":
     config = configparser.ConfigParser()
     config.read('config.ini')
     key = config['STEAM']['ApiKey']
+    geforce_url = config['GEFORCE']['JsonUrl']
 
-    geforce_url = \
-        'https://static.nvidiagrid.net/supported-public-game-list/gfnpc.json'
-    geforce_list = get_json(geforce_url)
-    game_list = generate_list(geforce_list)
+    game_list = get_json(geforce_url)
+    geforce_list = generate_list(game_list)
 
     try:
         steam_list = connect(key, args.username)
@@ -66,7 +80,7 @@ if __name__ == "__main__":
         input("Press Enter to exit...")
         exit(1)
 
-    result_data = get_common(game_list, steam_list)
+    result_data = get_common(geforce_list, steam_list)
     save_file(result_data, args.filename)
 
     print("Done! :D")
