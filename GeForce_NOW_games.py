@@ -26,11 +26,9 @@ def generate_list(json_data):
         data = dict()
         try:
             data['title'] = game['title']
-        except TypeError:
-            data['title'] = game.name
-        try:
             data['slug'] = slugify(game['title'])
         except TypeError:
+            data['title'] = game.name
             data['slug'] = slugify(game.name)
         data_list.append(data)
     return data_list
