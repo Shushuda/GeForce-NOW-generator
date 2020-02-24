@@ -48,6 +48,7 @@ as well as:
 
 ```
 steamapi
+python-slugify
 ```
 
 The script requires a **config.ini** file of the following format:
@@ -55,6 +56,9 @@ The script requires a **config.ini** file of the following format:
 ```
 [STEAM]
 ApiKey = <insert_your_key_here>
+
+[GEFORCE]
+JsonUrl = https://static.nvidiagrid.net/supported-public-game-list/gfnpc.json
 ```
 
 The end user will also need to obtain a valid Steam API **key** to connect. It is simple and easy to do (domain name is a formality - just put '127.0.0.1' since there's no place like home).
