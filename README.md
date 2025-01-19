@@ -66,7 +66,7 @@ Please refer to [official Steam API documentation](https://steamcommunity.com/de
 
 ## Authors
 
-* **Weronika Sikora** - [Shushuda](https://github.com/Shushuda)
+* [Shushuda](https://github.com/Shushuda)
 
 ## License
 
